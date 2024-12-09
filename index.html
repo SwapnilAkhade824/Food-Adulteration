@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Adulteration Detection - Team Imperial</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    h1 {
+      margin: 0;
+    }
+    main {
+      margin: 2rem auto;
+      width: 90%;
+      max-width: 600px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+    }
+    label, input, button, p {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 2rem;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Food Adulteration Detection</h1>
+    <h3>Team Imperial</h3>
+  </header>
+  <main>
+    <label for="foodInput">Enter Food Name:</label>
+    <input type="text" id="foodInput" placeholder="e.g., Milk, Sugar, Salt">
+    <button onclick="detectAdulteration()">Check Adulteration Steps</button>
+    <p id="result"></p>
+  </main>
+  <footer>
+    <p>&copy; 2024 Team Imperial. All rights reserved.</p>
+  </footer>
+  <script>
+    function detectAdulteration() {
+      const foodName = document.getElementById("foodInput").value.toLowerCase();
+      const result = document.getElementById("result");
+
+      const adulterationSteps = {
+        milk: "1. Add a few drops of iodine to milk. If it turns blue, starch is present. \n2. Heat a sample to check for synthetic milk by burning taste and smell.",
+        sugar: "1. Dissolve sugar in water. Chalk powder will settle at the bottom. \n2. Use HCl to check for carbonate impurities, which will release gas.",
+        salt: "1. Dissolve salt in water. White powder settling at the bottom indicates impurities. \n2. Rub on palm to detect powdered soap, which will form lather.",
+        honey: "1. Add a drop to water. Pure honey will settle, while adulterated honey dissolves. \n2. Burn a cotton wick dipped in honey to check for sugar presence.",
+        spices: "1. Rub spices (like turmeric or chili powder) on water-soaked paper to check for artificial colors. \n2. Dissolve in water; adulterants will settle.",
+        default: "Sorry, steps for this food item are not available. Please try common items like Milk, Sugar, Salt, Honey, or Spices."
+      };
+
+      result.textContent = adulterationSteps[foodName] || adulterationSteps.default;
+    }
+  </script>
+</body>
+</html>
