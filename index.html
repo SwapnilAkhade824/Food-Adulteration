@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Adulteration - Team Imperials</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fef8e6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #3fd544;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    main {
+      text-align: center;
+      margin: 3rem auto;
+    }
+    input {
+      padding: 12px;
+      font-size: 1.1rem;
+      border: 2px solid #3fd544;
+      border-radius: 5px;
+      width: 80%;
+      max-width: 400px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+    button {
+      background-color: #3fd544;
+      color: white;
+      font-size: 1.1rem;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #28b32c;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 800px;
+      background: white;
+      border: 2px solid #3fd544;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 1000;
+      overflow: hidden;
+    }
+    .popup .content {
+      display: flex;
+      padding: 20px;
+      background: #fff4ed;
+    }
+    .popup .content div {
+      flex: 1;
+      margin: 10px;
+    }
+    .popup .content h3 {
+      text-align: center;
+      color: #3fd544;
+      margin-bottom: 10px;
+    }
+    .popup .comments {
+      background: #ffe8e1;
+      padding: 15px;
+      border-top: 2px solid #3fd544;
+    }
+    .comments textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .comments button {
+      background-color: #3fd544;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #3fd544;
+      color: white;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+    textarea::placeholder {
+      font-family: 'Poppins', sans-serif; /* Change to any font you prefer */
+      font-size: 14px; /* Font size */
+      color: #888; /* Change placeholder text color */
+      opacity: 1; /* Ensure placeholder is visible */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Food Adulteration Detection</h1>
+    <h2>Team Imperials</h2>
+  </header>
+  
+    <!-- Hamburger Menu as a Button -->
+    <div class="menu-container">
+      <button class="menu-button" onclick="toggleMenu()">☰ Menu</button>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <li><a href="helped_you.html">How we Helped You</a></li>
+        <li><a href="share_stories.html">Share Your Stories for Food Adulteration</a></li>
+        <li><a href="share_solution.html">Share Your Solution</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="about_us.html">About US</a></li>
+      </div>
+    </div>
+    
+  <main>
+    <input type="text" id="foodInput" placeholder="Enter food name, e.g., Milk, Sugar, Salt" onkeydown="triggerSearch(event)">
+    <button onclick="searchFood()">Search</button>
+  </main>
+  <div class="overlay" onclick="closePopup()"></div>
+  <div class="popup" id="popup">
+    <div class="content">
+      <div>
+        <h3>Physical Methods</h3>
+        <p id="physicalSteps">Loading...</p>
+      </div>
+      <div>
+        <h3>Chemical Methods</h3>
+        <p id="chemicalSteps">Loading...</p>
+      </div>
+    </div>
+    <div class="comments">
+      <h4>Comments</h4>
+      <textarea id="commentInput" placeholder="Add your comment..." rows="3"></textarea>
+      <button onclick="submitComment()">Submit</button>
+      <div id="commentsList">
+        <p>No comments yet.</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2024 Team Imperials. All rights reserved.</p>
+  </footer>
+  <script>
+    const foodData = {
+  milk: {
+    physical: "1) Boil milk to detect water addition.<br>2) Check for burnt smell indicating synthetic milk.",
+    chemical: "1) Add iodine to test for starch.<br>2) Burn cotton dipped in milk, synthetic milk smells like plastic.",
+    comments: []
+  },
+  sugar: {
+    physical: "1) Dissolve in water to detect chalk powder sedimentation.<br>2) Inspect residue for impurities.",
+    chemical: "1) Add HCl, carbonate impurities release gas.<br>2) Look for effervescence.",
+    comments: []
+  }
+};
+
+function searchFood() {
+  const foodName = document.getElementById("foodInput").value.toLowerCase();
+  const popup = document.getElementById("popup");
+  const overlay = document.querySelector(".overlay");
+
+  if (foodData[foodName]) {
+    // Use innerHTML to support <br> tags
+    document.getElementById("physicalSteps").innerHTML = foodData[foodName].physical;
+    document.getElementById("chemicalSteps").innerHTML = foodData[foodName].chemical;
+    displayComments(foodName);
+  } else {
+    document.getElementById("physicalSteps").innerHTML = "No data available.";
+    document.getElementById("chemicalSteps").innerHTML = "No data available.";
+  }
+
+  popup.style.display = "block";
+  overlay.style.display = "block";
+}
+
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+      document.querySelector(".overlay").style.display = "none";
+    }
+
+    function triggerSearch(event) {
+      if (event.key === "Enter") {
+        searchFood();
+      }
+    }
+
+    function submitComment() {
+      const foodName = document.getElementById("foodInput").value.toLowerCase();
+      const comment = document.getElementById("commentInput").value;
+
+      if (!foodData[foodName] || !comment) return;
+
+      foodData[foodName].comments.push(comment);
+      displayComments(foodName);
+      document.getElementById("commentInput").value = "";
+    }
+
+    function displayComments(foodName) {
+      const commentsList = document.getElementById("commentsList");
+      const comments = foodData[foodName]?.comments || [];
+      
+      commentsList.innerHTML = comments.length
+        ? comments.map((c) => `<p>${c}</p>`).join("")
+        : "<p>No comments yet.</p>";
+    }
+  </script>
+  
+  <!--Java html-->
+  <script>
+    // Toggle the dropdown menu visibility when the button is clicked
+    document.querySelector('.menu-button').addEventListener('click', function(event) {
+      const dropdown = document.querySelector('.dropdown-menu');
+      dropdown.classList.toggle('show'); // Toggle the "show" class to show/hide the menu
+      event.stopPropagation(); // Prevent the click event from propagating to the document
+    });
+  
+    // Close the dropdown if the user clicks outside of the menu
+    document.addEventListener('click', function(event) {
+      const dropdown = document.querySelector('.dropdown-menu');
+      const menuContainer = document.querySelector('.menu-button');
+      
+      // Check if the clicked area is outside the menu container and dropdown
+      if (!menuContainer.contains(event.target)) {
+        dropdown.classList.remove('show'); // Hide the dropdown
+      }
+    });
+  </script>
+   
+  <!--end-->
+
+</body>
+</html>
