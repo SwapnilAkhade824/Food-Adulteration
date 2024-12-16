@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share Your Stories</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -16,7 +17,10 @@
         }
 
         header {
-            background-color: #3fd544;
+            background-color: #582288;
+            background: linear-gradient(90deg,#74568f,#3a016c);
+            text-shadow: 5px 5px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
             color: white;
             text-align: center;
             padding: 1.7rem;
@@ -46,15 +50,15 @@
         }
 
         form input, form textarea {
-            width: 97%;
+            width: 95% ;
             padding: 10px;
             margin-bottom: 1rem;
-            border: 2px solid #3fd544;
+            border: 2px solid #6e2ea5;
             border-radius: 5px;
         }
 
         form button {
-            background-color: #3fd544;
+            background-color: #6e2ea5;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -64,14 +68,15 @@
         }
 
         form button:hover {
-            background-color: #37bd3b;
+            background-color: #4f2d6d;
             transition: 0.3;
         }
 
         footer {
             text-align: center;
-            padding: 1.5rem;
-            background-color: #3fd544;
+            padding: 2.5rem;
+            background-color: #582288;
+            background: linear-gradient(90deg,#74568f,#3a016c);
             color: white;
             margin-top: auto;
         }
@@ -85,12 +90,24 @@
 </head>
 <body>
     <header>
+        <img src="Logo.png" alt="Team Imperials Logo" class="team-logo3">
         <h1>Share Your Stories</h1>
+        
+        <!-- <div class="logo-container">
+            <div class="logo-details">
+              <img src="Logo.png" alt="Team Imperials Logo" class="team-logo">
+              <h1>Share Your Stories</h1>
+            </div>
+        </div> -->
+    
     </header>
     <main>
         <form action="#" method="POST">
             <label for="author">Your Name:</label>
             <input type="text" id="author" name="author" placeholder="Enter your name" required>
+
+            <label for="author">Your Email:</label>
+            <input type="text" id="author" placeholder="Enter your email" required>
 
             <label for="story">Your Story:</label>
             <textarea id="story" name="story" rows="9" placeholder="Share your experience here..." required></textarea>
@@ -105,51 +122,4 @@
 </html>
 
 
-
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share your stories - Team Imperials</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-          font-family: 'Poppins', sans-serif;
-          background-color: #fef8e6;
-          color: #333;
-          margin: 0;
-          padding: 0;
-        }
-        header {
-          background-color: #3fd544;
-          color: white;
-          text-align: center;
-          padding: 0.5rem;
-          font-size: 1.155rem;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        main {
-          text-align: center;
-          margin: 3rem auto;
-        }
-        footer {
-          text-align: center;
-          padding: 1.5rem;
-          background-color: #3fd544;
-          color: white;
-          margin-top: 20px;
-          font-size: 1rem;
-        }
-      </style>
-</head>
-<body>
-    <header>
-        <h1>Share Your Stories For Food Adulteration</h1>
-        <h2>Team Imperials</h2>
-      </header>
-</body>
-</html>
--->
 

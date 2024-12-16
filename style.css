@@ -106,4 +106,40 @@ footer {
   }
 }
 
+.logo-container{
+  text-align: center;
+}
 
+
+.logo-details{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  padding: 10px;
+}
+
+.team-logo{
+  width: auto;
+  height: 150px;
+  background-color: #333;
+  border-radius: 10px;
+  margin-right: 20px;
+} 
+
+.team-logo2{
+  width: auto;
+  height: 400px;
+  background-color: #333;
+  border-radius: 20px;
+}
+
+.team-logo3{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: 145px;
+  background-color: #333;
+  border-radius: 20px;
+}
