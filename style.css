@@ -37,7 +37,7 @@ footer {
 }
 
 .menu-button {
-  background-color: #3fd544;
+  background-color: #6e2ea5;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -50,7 +50,7 @@ footer {
 }
 
 .menu-button:hover {
-  background-color: #28b32c;
+  background-color: #3f1762;
 }
 
 .dropdown-menu {
