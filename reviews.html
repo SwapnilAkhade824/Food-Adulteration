@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Stories</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fef8e6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #582288;
+            background: linear-gradient(90deg,#74568f,#3a016c);
+            text-shadow: 5px 5px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            padding: 1.7rem;
+            font-size: 1.5rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 1rem auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        form input, form textarea {
+            width: 95% ;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 2px solid #6e2ea5;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #6e2ea5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        form button:hover {
+            background-color: #4f2d6d;
+            transition: 0.3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            background-color: #582288;
+            background: linear-gradient(90deg,#74568f,#3a016c);
+            color: white;
+            margin-top: auto;
+        }
+        input,textarea::placeholder {
+            font-family: 'Poppins', sans-serif; /* Change to any font you prefer */
+            font-size: 14px; /* Font size */
+            color: #888; /* Change placeholder text color */
+            opacity: 1; /* Ensure placeholder is visible */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Logo.png" alt="Team Imperials Logo" class="team-logo3">
+        <h1>Share Your Solutions</h1>
+        
+        <!-- <div class="logo-container">
+            <div class="logo-details">
+              <img src="Logo.png" alt="Team Imperials Logo" class="team-logo">
+              <h1>Share Your Stories</h1>
+            </div>
+        </div> -->
+    
+    </header>
+    <main>
+        <form action="#" method="POST">
+            <label for="author">Your Name:</label>
+            <input type="text" id="author" name="author" placeholder="Enter your name" required>
+
+            <label for="author">Your Email:</label>
+            <input type="text" id="author" placeholder="Enter your email" required>
+
+            <div class="review-container">
+
+                <label for="author">Rate Us:</label>
+                <div class="stars" id="star-container">
+                    <span data-value="1" class="star">&#9733;</span>
+                    <span data-value="2" class="star">&#9733;</span>
+                    <span data-value="3" class="star">&#9733;</span>
+                    <span data-value="4" class="star">&#9733;</span>
+                    <span data-value="5" class="star">&#9733;</span>
+                </div>
+                
+            </div>
+
+            <label for="story">Comment:</label>
+            <textarea id="story" name="story" rows="9" placeholder="Leave your comment here..." required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+    <footer>
+        &copy; 2024 Food Adulteration Awareness
+    </footer>
+</body>
+<script src="script.js"></script>
+</html>
+
+
+
