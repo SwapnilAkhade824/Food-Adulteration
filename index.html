@@ -49,7 +49,7 @@
     }
     button:hover {
       background-color: #4f2d6d;
-      transition: 0.3;
+      transition: 0.3s;
     }
     .overlay {
       position: fixed;
@@ -77,18 +77,23 @@
       overflow: hidden;
     }
     .popup .content {
-      display: flex;
       padding: 20px;
       background: #fff4ed;
-    }
-    .popup .content div {
-      flex: 1;
-      margin: 10px;
+      text-align: left;
     }
     .popup .content h3 {
-      text-align: center;
       color: #6e2ea5;
       margin-bottom: 10px;
+      text-align: center;
+    }
+    .popup .options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .popup .options button {
+      padding: 10px 20px;
     }
     .popup .comments {
       background: #ffe8e1;
@@ -114,6 +119,12 @@
       background-color: #4f2d6d;
       transition: 0.3s;
     }
+    textarea::placeholder {
+      font-family: 'Poppins', sans-serif; /* Change to any font you prefer */
+      font-size: 14px; /* Font size */
+      color: #888; /* Change placeholder text color */
+      opacity: 1; /* Ensure placeholder is visible */
+    }
     footer {
       text-align: center;
       padding: 1.5rem;
@@ -123,18 +134,10 @@
       margin-top: 20px;
       font-size: 1rem;
     }
-    textarea::placeholder {
-      font-family: 'Poppins', sans-serif; /* Change to any font you prefer */
-      font-size: 14px; /* Font size */
-      color: #888; /* Change placeholder text color */
-      opacity: 1; /* Ensure placeholder is visible */
-    }
   </style>
 </head>
 <body>
   <header>
-    <!-- <h1>Food Adulteration Detection</h1> -->
-    <!-- <img src="Logo.png" alt="Team Imperials Logo" class = "team-logo"> -->
     <div class="logo-container">
       <h1>Food Adulteration Detection</h1>
       <div class="logo-details">
@@ -142,36 +145,39 @@
         <h2>Team Imperials</h2>
       </div>
     </div>
-    <!-- <h2>Team Imperials</h2> -->
   </header>
-  
     <!-- Hamburger Menu as a Button -->
     <div class="menu-container">
-      <button class="menu-button" onclick="toggleMenu()">☰ Menu</button>
-      <div class="dropdown-menu" id="dropdownMenu">
-        <li><a href="helped_you.html">How we Helped You</a></li>
-        <li><a href="share_stories.html">Share Your Stories for Food Adulteration</a></li>
-        <li><a href="share_solution.html">Share Your Solution</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-        <li><a href="about_us.html">About US</a></li>
-      </div>
+        <button class="menu-button" onclick="toggleMenu()">☰ Menu</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <li><a href="helped_you.html">How we Helped You</a></li>
+          <li><a href="share_stories.html">Share Your Stories for Food Adulteration</a></li>
+          <li><a href="share_solution.html">Share Your Solution</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="about_us.html">About US</a></li>
+        </div>
     </div>
-    
   <main>
     <input type="text" id="foodInput" placeholder="Enter food name, e.g., Milk, Sugar, Salt" onkeydown="triggerSearch(event)">
-    <button onclick="searchFood()">Search</button>
+    <button onclick="showMethodChoice()">Search</button>
   </main>
+
   <div class="overlay" onclick="closePopup()"></div>
-  <div class="popup" id="popup">
+
+  <div class="popup" id="methodChoicePopup">
     <div class="content">
-      <div>
-        <h3>Physical Methods</h3>
-        <p id="physicalSteps">Loading...</p>
+      <h3>Choose the Method</h3>
+      <div class="options">
+        <button onclick="showFeasibleMethod()">Feasible Method</button>
+        <button onclick="showChemicalMethod()">Chemical Method</button>
       </div>
-      <div>
-        <h3>Chemical Methods</h3>
-        <p id="chemicalSteps">Loading...</p>
-      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="resultPopup">
+    <div class="content">
+      <h3 id="methodTitle">Method</h3>
+      <p id="methodSteps">Loading...</p>
     </div>
     <div class="comments">
       <h4>Comments</h4>
@@ -182,97 +188,105 @@
       </div>
     </div>
   </div>
+  
+
   <footer>
     <p>&copy; 2024 Team Imperials. All rights reserved.</p>
   </footer>
-  <script>
-    const foodData = {
-  milk: {
-    physical: "1) Boil milk to detect water addition.<br>2) Check for burnt smell indicating synthetic milk.",
-    chemical: "1) Add iodine to test for starch.<br>2) Burn cotton dipped in milk, synthetic milk smells like plastic.",
-    comments: []
-  },
-  sugar: {
-    physical: "1) Dissolve in water to detect chalk powder sedimentation.<br>2) Inspect residue for impurities.",
-    chemical: "1) Add HCl, carbonate impurities release gas.<br>2) Look for effervescence.",
-    comments: []
+
+<script>
+  const foodData = {
+    milk: {
+      feasible: "1) Boil milk to check for water addition.<br>2) Observe burnt smell indicating synthetic milk.",
+      chemical: "1) Add iodine to test for starch.<br>2) Burn cotton dipped in milk; synthetic milk smells like plastic.",
+      comments: []
+    },
+    sugar: {
+      feasible: "1) Dissolve in water to detect chalk powder sedimentation.<br>2) Inspect residue for impurities.",
+      chemical: "1) Add HCl, carbonate impurities release gas.<br>2) Look for effervescence.",
+      comments: []
+    }
+  };
+
+  function showMethodChoice() {
+    const foodName = document.getElementById("foodInput").value.toLowerCase();
+    if (foodData[foodName]) {
+      document.getElementById("methodChoicePopup").style.display = "block";
+      document.querySelector(".overlay").style.display = "block";
+    } else {
+      alert("No data available for the entered food.");
+    }
   }
-};
 
-function searchFood() {
-  const foodName = document.getElementById("foodInput").value.toLowerCase();
-  const popup = document.getElementById("popup");
-  const overlay = document.querySelector(".overlay");
+  function closePopup() {
+    document.querySelectorAll(".popup").forEach(popup => popup.style.display = "none");
+    document.querySelector(".overlay").style.display = "none";
+  }
 
-  if (foodData[foodName]) {
-    // Use innerHTML to support <br> tags
-    document.getElementById("physicalSteps").innerHTML = foodData[foodName].physical;
-    document.getElementById("chemicalSteps").innerHTML = foodData[foodName].chemical;
+  function showFeasibleMethod() {
+    displayMethod("feasible", "Feasible Method");
+  }
+
+  function showChemicalMethod() {
+    displayMethod("chemical", "Chemical Method");
+  }
+
+  function displayMethod(methodType, methodTitle) {
+    const foodName = document.getElementById("foodInput").value.toLowerCase();
+    document.getElementById("methodTitle").innerText = methodTitle;
+    document.getElementById("methodSteps").innerHTML = foodData[foodName][methodType] || "No data available.";
+    closePopup();
+    document.getElementById("resultPopup").style.display = "block";
+    document.querySelector(".overlay").style.display = "block";
+  }
+
+  function triggerSearch(event) {
+    if (event.key === "Enter") {
+      showMethodChoice();
+    }
+  }
+
+  function submitComment() {
+    const foodName = document.getElementById("foodInput").value.toLowerCase();
+    const comment = document.getElementById("commentInput").value;
+
+    if (!foodData[foodName] || !comment) return;
+
+    foodData[foodName].comments.push(comment);
     displayComments(foodName);
-  } else {
-    document.getElementById("physicalSteps").innerHTML = "No data available.";
-    document.getElementById("chemicalSteps").innerHTML = "No data available.";
+    document.getElementById("commentInput").value = "";
   }
 
-  popup.style.display = "block";
-  overlay.style.display = "block";
-}
+  function displayComments(foodName) {
+    const commentsList = document.getElementById("commentsList");
+    const comments = foodData[foodName]?.comments || [];
+    
+    commentsList.innerHTML = comments.length
+      ? comments.map((c) => `<p>${c}</p>`).join("")
+      : "<p>No comments yet.</p>";
+  }
 
+</script>
 
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-      document.querySelector(".overlay").style.display = "none";
+<script>
+  // Toggle the dropdown menu visibility when the button is clicked
+  document.querySelector('.menu-button').addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.dropdown-menu');
+    dropdown.classList.toggle('show'); // Toggle the "show" class to show/hide the menu
+    event.stopPropagation(); // Prevent the click event from propagating to the document
+  });
+
+  // Close the dropdown if the user clicks outside of the menu
+  document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.dropdown-menu');
+    const menuContainer = document.querySelector('.menu-button');
+    
+    // Check if the clicked area is outside the menu container and dropdown
+    if (!menuContainer.contains(event.target)) {
+      dropdown.classList.remove('show'); // Hide the dropdown
     }
-
-    function triggerSearch(event) {
-      if (event.key === "Enter") {
-        searchFood();
-      }
-    }
-
-    function submitComment() {
-      const foodName = document.getElementById("foodInput").value.toLowerCase();
-      const comment = document.getElementById("commentInput").value;
-
-      if (!foodData[foodName] || !comment) return;
-
-      foodData[foodName].comments.push(comment);
-      displayComments(foodName);
-      document.getElementById("commentInput").value = "";
-    }
-
-    function displayComments(foodName) {
-      const commentsList = document.getElementById("commentsList");
-      const comments = foodData[foodName]?.comments || [];
-      
-      commentsList.innerHTML = comments.length
-        ? comments.map((c) => `<p>${c}</p>`).join("")
-        : "<p>No comments yet.</p>";
-    }
-  </script>
-  
-  <!--Java html-->
-  <script>
-    // Toggle the dropdown menu visibility when the button is clicked
-    document.querySelector('.menu-button').addEventListener('click', function(event) {
-      const dropdown = document.querySelector('.dropdown-menu');
-      dropdown.classList.toggle('show'); // Toggle the "show" class to show/hide the menu
-      event.stopPropagation(); // Prevent the click event from propagating to the document
-    });
-  
-    // Close the dropdown if the user clicks outside of the menu
-    document.addEventListener('click', function(event) {
-      const dropdown = document.querySelector('.dropdown-menu');
-      const menuContainer = document.querySelector('.menu-button');
-      
-      // Check if the clicked area is outside the menu container and dropdown
-      if (!menuContainer.contains(event.target)) {
-        dropdown.classList.remove('show'); // Hide the dropdown
-      }
-    });
-  </script>
-   
-  <!--end-->
+  });
+</script>
 
 </body>
 </html>
