@@ -106,34 +106,33 @@
     </header>
     <main>
         <form id="storyForm">
-    <input type="text" name="name" id="name" required placeholder="Your Name">
-    <input type="email" name="email" id="email" required placeholder="Your Email">
-    <textarea name="story" id="story" required placeholder="Your Story"></textarea>
-    <button type="submit">Submit</button>
-</form>
-
-<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script type="text/javascript">
-    emailjs.init("YOUR_USER_ID");  // Replace with your EmailJS user ID
-
-    document.getElementById("storyForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        var templateParams = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            story: document.getElementById("story").value
-        };
-
-        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
-            .then(function(response) {
-                alert("Success! Your story has been submitted.");
-            }, function(error) {
-                alert("Oops! Something went wrong.");
+            <input type="text" name="name" id="name" required placeholder="Your Name">
+            <input type="email" name="email" id="email" required placeholder="Your Email">
+            <textarea name="story" id="story" required placeholder="Your Story"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        
+        <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        <script type="text/javascript">
+            emailjs.init("Yservice_v462aw5");  // Replace with your EmailJS user ID
+        
+            document.getElementById("storyForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+        
+                var templateParams = {
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    story: document.getElementById("story").value
+                };
+        
+                emailjs.send("Yservice_v462aw5", "template_vdrds4b", templateParams)
+                    .then(function(response) {
+                        alert("Success! Your story has been submitted.");
+                    }, function(error) {
+                        alert("Oops! Something went wrong.");
+                    });
             });
-    });
-</script>
-      
+        </script>        
     </main>
     <footer>
         &copy; 2024 Food Adulteration Awareness
