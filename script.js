@@ -40,7 +40,7 @@ document.getElementById("storyForm").addEventListener("submit", function (event)
     event.preventDefault(); // Prevent default form submission
 
     // Initialize EmailJS with your Public Key
-    emailjs.init("18I0Y9YVf6Lk0Kk9s"); // Replace with your EmailJS Public Key
+    emailjs.init("AaI5BRRlRjKaBr0OC"); // Replace with your EmailJS Public Key
 
     // Collect form data
     const formData = {
@@ -49,14 +49,56 @@ document.getElementById("storyForm").addEventListener("submit", function (event)
         story: document.getElementById("story").value,
     };
 
-    // Send email using EmailJS
-    emailjs.send("service_v462aw5", "template_vdrds4b", formData)
-        .then(function (response) {
-            alert("Your story has been submitted successfully!");
-            console.log("SUCCESS!", response.status, response.text);
+    fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            service_id: "service_v462aw5",
+            template_id: "template_vdrds4b",
+            user_id: "AaI5BRRlRjKaBr0OC",
+            template_params: {
+                name: "Test User",
+                email: "test@example.com",
+                story: "This is a test story.",
+            },
+        }),
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Email sent successfully!");
+            } else {
+                response.json().then((data) => console.error("Error response:", data));
+            }
         })
-        .catch(function (error) {
-            alert("There was an error submitting your story. Please try again.");
-            console.error("FAILED...", error);
-        });
+        .catch((error) => console.error("Fetch error:", error));
+    
+    // // Send email using EmailJS
+    // emailjs
+    // .send("service_v462aw5", "template_vdrds4b", formData)
+    // .then(function (response) {
+    //     console.log("Email Sent Successfully!", response);
+    //     alert("Your story has been submitted successfully!");
+    // })
+    // .catch(function (error) {
+    //     console.error("Error Sending Email:", error);
+    //     alert("Error: Unable to send your story. Please try again.");
+    // });
+
+    // console.log("EmailJS send function triggered");
+
+    emailjs
+    .send("service_v462aw5", "template_vdrds4b", {
+        name: "Test User",
+        email: "test@example.com",
+        story: "This is a test story.",
+    })
+    .then(function (response) {
+        console.log("Email sent successfully:", response);
+    })
+    .catch(function (error) {
+        console.error("Error sending email:", error);
+    });
+
 });
