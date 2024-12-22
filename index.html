@@ -122,8 +122,17 @@
       background-color: #4f2d6d;
       transition: 0.3s;
     }
+    textarea {
+      width: 80%;
+      height: 150px;
+      padding: 10px;
+      font-size: 16px; /* Default font size */
+      font-family: Arial, sans-serif; /* Default font */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
     textarea::placeholder {
-      font-family: 'Poppins', sans-serif; /* Change to any font you prefer */
+      font-family: 'Poppins',sans-serif; /* Change to any font you prefer */
       font-size: 14px; /* Font size */
       color: #888; /* Change placeholder text color */
       opacity: 1; /* Ensure placeholder is visible */
@@ -153,11 +162,11 @@
     <div class="menu-container">
         <button class="menu-button" onclick="toggleMenu()">☰ Menu</button>
         <div class="dropdown-menu" id="dropdownMenu">
-          <li><a href="helped_you.html">How we Helped You</a></li>
-          <li><a href="share_stories.html">Share Your Stories for Food Adulteration</a></li>
-          <li><a href="share_solution.html">Share Your Solution</a></li>
-          <li><a href="reviews.html">Reviews</a></li>
-          <li><a href="about_us.html">About US</a></li>
+          <li><a href="Menu/helped_you.html">How we Helped You</a></li>
+          <li><a href="Menu/share_stories.html">Share Your Stories for Food Adulteration</a></li>
+          <li><a href="Menu/share_solution.html">Share Your Solution</a></li>
+          <li><a href="Menu/reviews.html">Reviews</a></li>
+          <li><a href="Menu/about_us.html">About US</a></li>
         </div>
     </div>
   <main>
@@ -184,7 +193,7 @@
     </div>
     <div class="comments">
       <h4>Comments</h4>
-      <textarea id="commentInput" placeholder="Add your comment..." rows="3"></textarea>
+      <textarea type='text' id="commentInput" placeholder="Add your comment..." rows="3"></textarea>
       <button onclick="submitComment()">Submit</button>
       <div id="commentsList">
         <p>No comments yet.</p>
@@ -198,7 +207,7 @@
   </footer>
 
 <script>
-  const foodData = {
+  var foodData = {
     milk: {
       feasible: "1) Boil milk to check for water addition.<br>2) Observe burnt smell indicating synthetic milk.",
       chemical: "1) Add iodine to test for starch.<br>2) Burn cotton dipped in milk; synthetic milk smells like plastic.",
@@ -212,7 +221,7 @@
   };
 
   function showMethodChoice() {
-    const foodName = document.getElementById("foodInput").value.toLowerCase();
+    var foodName = document.getElementById("foodInput").value.toLowerCase();
     if (foodData[foodName]) {
       document.getElementById("methodChoicePopup").style.display = "block";
       document.querySelector(".overlay").style.display = "block";
@@ -235,7 +244,7 @@
   }
 
   function displayMethod(methodType, methodTitle) {
-    const foodName = document.getElementById("foodInput").value.toLowerCase();
+    var foodName = document.getElementById("foodInput").value.toLowerCase();
     document.getElementById("methodTitle").innerText = methodTitle;
     document.getElementById("methodSteps").innerHTML = foodData[foodName][methodType] || "No data available.";
     closePopup();
@@ -250,8 +259,8 @@
   }
 
   function submitComment() {
-    const foodName = document.getElementById("foodInput").value.toLowerCase();
-    const comment = document.getElementById("commentInput").value;
+    var foodName = document.getElementById("foodInput").value.toLowerCase();
+    var comment = document.getElementById("commentInput").value;
 
     if (!foodData[foodName] || !comment) return;
 
@@ -261,8 +270,8 @@
   }
 
   function displayComments(foodName) {
-    const commentsList = document.getElementById("commentsList");
-    const comments = foodData[foodName]?.comments || [];
+    var commentsList = document.getElementById("commentsList");
+    var comments = foodData[foodName]?.comments || [];
     
     commentsList.innerHTML = comments.length
       ? comments.map((c) => `<p>${c}</p>`).join("")
