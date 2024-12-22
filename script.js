@@ -49,56 +49,16 @@ document.getElementById("storyForm").addEventListener("submit", function (event)
         story: document.getElementById("story").value,
     };
 
-    fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            service_id: "service_v462aw5",
-            template_id: "template_vdrds4b",
-            user_id: "AaI5BRRlRjKaBr0OC",
-            template_params: {
-                name: "Test User",
-                email: "test@example.com",
-                story: "This is a test story.",
-            },
-        }),
-    })
-        .then((response) => {
-            if (response.ok) {
-                console.log("Email sent successfully!");
-            } else {
-                response.json().then((data) => console.error("Error response:", data));
-            }
-        })
-        .catch((error) => console.error("Fetch error:", error));
-    
-    // // Send email using EmailJS
-    // emailjs
-    // .send("service_v462aw5", "template_vdrds4b", formData)
-    // .then(function (response) {
-    //     console.log("Email Sent Successfully!", response);
-    //     alert("Your story has been submitted successfully!");
-    // })
-    // .catch(function (error) {
-    //     console.error("Error Sending Email:", error);
-    //     alert("Error: Unable to send your story. Please try again.");
-    // });
-
-    // console.log("EmailJS send function triggered");
-
+    // Send email using EmailJS
     emailjs
-    .send("service_v462aw5", "template_vdrds4b", {
-        name: "Test User",
-        email: "test@example.com",
-        story: "This is a test story.",
-    })
+    .send("service_v462aw5", "template_vdrds4b", formData)
     .then(function (response) {
-        console.log("Email sent successfully:", response);
+        console.log("Email Sent Successfully!", response);
+        alert("Your story has been submitted successfully!");
     })
     .catch(function (error) {
-        console.error("Error sending email:", error);
+        console.error("Error Sending Email:", error);
+        alert("Error: Unable to send your story. Please try again.");
     });
 
 });

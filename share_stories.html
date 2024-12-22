@@ -90,7 +90,16 @@
             opacity: 1; /* Ensure placeholder is visible */
         }
     </style>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript"
+    src="https://cdn.emailjs.com/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+    emailjs.init({
+        publicKey: "AaI5BRRlRjKaBr0OC",
+    });
+    })();
+    </script>
     <script src="script.js"></script>
 </head>
 <body>
@@ -107,7 +116,7 @@
     
     </header>
     <main>
-        <form id="storyForm">
+        <form id="storyForm" onsubmit="sendmail(event)">
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="name" required placeholder="Your Name">
             
@@ -120,6 +129,7 @@
             <button type="submit">Submit</button>
         </form>      
     </main>
+    
     <footer>
         &copy; 2024 Food Adulteration Awareness
     </footer>
